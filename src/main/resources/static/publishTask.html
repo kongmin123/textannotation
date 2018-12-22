@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!--<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />-->
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/xadmin.css">
+    <!--<link rel="stylesheet" href="./css/bootstrap/bootstrap.css">-->
+    <link rel="stylesheet" type="text/css" href="./css/tag.css" />
+
+</head>
+
+<body>
+
+<div class="x-body layui-anim layui-anim-up">
+    <div class="layui-form-item">
+        <label class="layui-form-label">选择类型</label>
+        <div class="layui-input-inline">
+            <select name="type">
+                <option value="" selected="">请选择类型</option>
+                <option value="信息抽取">信息抽取</option>
+                <option value="分类">分类</option>
+                <option value="多文本关系">多文本关系</option>
+                <option value="多文本内逻辑关系">多文本内逻辑关系</option>
+            </select>
+        </div>
+    </div>
+    <form class="layui-form">
+        <div class="layui-form-item">
+
+            <div class="layui-inline">
+                <label class="layui-form-label">上传文件</label>
+                <div class="layui-input-block">
+                    <input id="photoCover" class="input-large" type="text" style="height:30px;">
+                    <button type="button" class="layui-btn" onclick="$('input[id=f]').click();"><i class="layui-icon"></i>选择文件</button>
+                    <input type="button" class="layui-btn" id="sub-upload" value="确定上传">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-block">
+
+                </div>
+            </div>
+            <div class="layui-inline">
+                <input id="f" type="file" style="display:none" name="f">
+
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">标题</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" id="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">描述</label>
+            <div class="layui-input-block">
+                <input type="text" name="description" id="description" autocomplete="off" placeholder="请输入任务描述" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">添加标签</label>
+            <div class="layui-input-block">
+                <input type="text" id="tagValue" >
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">截止日期</label>
+                <div class="layui-input-block">
+                    <input type="text" name="date" id="date1" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline" pane="">
+                <label class="layui-form-label">截止通知-开</label>
+                <div class="layui-input-inline">
+                    <input type="checkbox" checked="" name="open" lay-skin="switch" lay-filter="switchTest" title="开关">
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">备注信息</label>
+            <div class="layui-input-block">
+                <textarea placeholder="请输入内容" class="layui-textarea" id="otherinfo"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <input class="layui-btn" id="sub-info" value="提交">
+        </div>
+    </form>
+
+    <script src="./lib/layui/layui.js" charset="utf-8"></script>
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="js/core/publishTask.js"></script>
+    <!--<script type="text/javascript" src="js/tag.js"></script>-->
+
+    <script type="text/javascript">
+
+
+        $('input[id=f]').change(function() {
+            $('#photoCover').val($(this).val());
+        });
+        layui.use(['form', 'layedit', 'laydate'], function() {
+            var form = layui.form,
+                layer = layui.layer,
+                layedit = layui.layedit,
+                laydate = layui.laydate;
+
+            //日期
+            laydate.render({
+                elem: '#date'
+            });
+            laydate.render({
+                elem: '#date1'
+            });
+
+            //创建一个编辑器
+            var editIndex = layedit.build('LAY_demo_editor');
+
+            //自定义验证规则
+//            form.verify({
+//                title: function(value) {
+//                    if (value.length < 5) {
+//                        return '标题至少得5个字符啊';
+//                    }
+//                },
+//                pass: [/(.+){6,12}$/, '密码必须6到12位'],
+//                content: function(value) {
+//                    layedit.sync(editIndex);
+//                }
+//            });
+
+            //监听指定开关
+//            form.on('switch(switchTest)', function(data) {
+//                layer.msg('开关checked：' + (this.checked ? 'true' : 'false'), {
+//                    offset: '6px'
+//                });
+//                layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
+//            });
+
+            //监听提交
+//            form.on('submit(demo1)', function(data) {
+//                layer.alert(JSON.stringify(data.field), {
+//                    title: '最终的提交信息'
+//                })
+//                return false;
+//            });
+
+
+        });
+
+        layui.use('upload', function(){
+            var $ = layui.jquery
+                ,upload = layui.upload;
+
+            //普通图片上传
+//            var uploadInst = upload.render({
+//                elem: '#test1'
+//                ,url: '/upload/'
+//                ,before: function(obj){
+//                    //预读本地文件示例，不支持ie8
+//                    obj.preview(function(index, file, result){
+//                        $('#demo1').attr('src', result); //图片链接（base64）
+//                    });
+//                }
+//                ,done: function(res){
+//                    //如果上传失败
+//                    if(res.code > 0){
+//                        return layer.msg('上传失败');
+//                    }
+//                    //上传成功
+//                }
+//                ,error: function(){
+//                    //演示失败状态，并实现重传
+//                    var demoText = $('#demoText');
+//                    demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+//                    demoText.find('.demo-reload').on('click', function(){
+//                        uploadInst.upload();
+//                    });
+//                }
+//            });
+//
+
+
+            //指定允许上传的文件类型
+//            upload.render({
+//                elem: '#test3'
+//                ,url: '/file/addFile'
+//                ,accept: 'file' //普通文件
+//                ,done: function(res){
+//                    console.log(res)
+//                }
+//            });
+//            upload.render({ //允许上传的文件后缀
+//                elem: '#test4'
+//                ,url: '/upload/'
+//                ,accept: 'file' //普通文件
+//                ,exts: 'zip|rar|7z' //只允许上传压缩文件
+//                ,done: function(res){
+//                    console.log(res)
+//                }
+//            });
+
+            //设定文件大小限制
+            upload.render({
+                elem: '#test7'
+                ,url: '/upload/'
+                ,size: 60 //限制文件大小，单位 KB
+                ,done: function(res){
+                    console.log(res)
+                }
+            });
+
+
+
+            //选完文件后不自动上传
+            upload.render({
+                elem: '#test8'
+                ,url: '/upload/'
+                ,auto: false
+                //,multiple: true
+                ,bindAction: '#test9'
+                ,done: function(res){
+                    console.log(res)
+                }
+            });
+
+            //拖拽上传
+            upload.render({
+                elem: '#test10'
+                ,url: '/upload/'
+                ,done: function(res){
+                    console.log(res)
+                }
+            });
+
+
+            //绑定原始文件域
+            upload.render({
+                elem: '#test20'
+                ,url: '/upload/'
+                ,done: function(res){
+                    console.log(res)
+                }
+            });
+
+        });
+    </script>
+</div>
+</body>
+</html>

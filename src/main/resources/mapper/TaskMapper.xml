@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.annotation.dao.TaskMapper">
+
+
+    <insert id="insertTask" useGeneratedKeys="true" keyProperty="tid" parameterType="com.annotation.model.Task">
+        insert into task
+          (title, `description`, `createtime`, deadline,taskcomptime,taskcompstatus, otherinfo,userid,`type`)
+        values
+          (#{title}, #{description},  #{createtime}, #{deadline}, #{taskcomptime},#{taskcompstatus},#{otherinfo},#{userid},#{type})
+    </insert>
+   <!-- <select id="selectTask" resultType="Task">
+    SELECT * FROM task
+  </select>-->
+    <resultMap id="BaseResultMap" type="com.annotation.model.Task" >
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="taskcompstatus" property="taskcompstatus" jdbcType="VARCHAR" />
+        <result column="createtime" property="createtime" jdbcType="VARCHAR"/>
+    </resultMap>
+
+   <!-- <sql id="Base_Column_List" >
+        title, taskcompstatus, createtime
+    </sql>-->
+
+    <select id="getAll" resultMap="BaseResultMap"  >
+        SELECT title, taskcompstatus, createtime FROM task
+    </select>
+
+
+    <select id="selectTaskById" parameterType="Integer" resultType="com.annotation.model.Task" >
+    select * from task where tid = #{tid}
+    </select>
+
+
+    <select id="selectTaskByRelatedInfo" parameterType="map" resultType="com.annotation.model.Task">
+        select * from task where userid = #{userid} limit #{currIndex},#{pageSize}
+    </select>
+
+    <select id="countTaskNumByUserid" parameterType="Integer" resultType="Integer">
+        select count(*) from task where userid = #{userid}
+    </select>
+
+
+    <update id="updateById" parameterType="com.annotation.model.Task">
+        UPDATE task
+        <trim prefix="set" suffixOverrides=",">
+            <if test="title!=null">title=#{title},</if>
+            <if test="description!=null">description=#{description},</if>
+            <if test="createtime!=null">createtime=#{createtime},</if>
+            <if test="deadline!=null">deadline=#{deadline},</if>
+            <if test="taskcomptime!=null">taskcomptime=#{taskcomptime},</if>
+            <if test="taskcompstatus!=null">taskcompstatus=#{taskcompstatus},</if>
+            <if test="otherinfo!=null">otherinfo=#{otherinfo},</if>
+            <if test="userid!=null">userid=#{userid},</if>
+            <if test="type!=null">type=#{type},</if>
+        </trim>
+        WHERE tid = #{tid}
+    </update>
+
+</mapper>
